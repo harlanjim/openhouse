@@ -20,7 +20,7 @@ public class OpenhouseApplication {
 		SpringApplication.run(OpenhouseApplication.class);
 	}
 
-	/*
+
 	@Bean
 	public CommandLineRunner demo(GroupRepository repository) {
 		return (args) -> {
@@ -55,5 +55,4 @@ public class OpenhouseApplication {
 	        log.info("");
 		};
 	}
-	*/
 }

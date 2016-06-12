@@ -1,11 +1,77 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example</title>
-    </head>
-    <body>
-        <h1>Welcome!</h1>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout">
+	<head>
+  		<title>Fah House</title>
+  		<script type="text/javascript">
+		   $(document).ready(function(){
+			    $('#rooms tbody tr').click(function(){
+			        window.open("/house/room/" +$(":first-child", this).attr("row")+"/climates", '_self');
+			    });
+			    $( "#accordion" ).accordion({
+			    	header: 'h3:not(.ignore)'
+				});
+			});
+		   </script>
+	</head>
+    <body> 
+		<div layout:fragment="content">
+			<div class="container">
+			    <div th:fragment="header">
+			        <nav class="navbar navbar-default">
+			            <div class="container-fluid">
+			                <div class="navbar-header" style="width:100%;">
+			                    <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+			                    <ul class="nav navbar-nav">
+			                        <li><a href="#" th:href="@{/devices/}">Devices</a></li>
+			                        <li><a href="#" th:href="@{/devices/}">Events</a></li>
+			                    </ul>
+			                    <a href="#" th:href="@{/login?logoff}" class="nav navbar-brand" style="float:right;">Logoff</a>
+			                </div>
+			            </div>
+			        </nav>
+			    </div>
+			</div>
 
-        <p>Click <a th:href="@{/hello}">here</a> to see a greeting.</p>
+		   <div class="row"  style="margin-bottom:50px;">
+		      <div class="col-md-offset-1 col-md-10">
+		            <div class="panel panel-success">
+					  <div class="panel-heading">
+					    <h2 class="panel-title">Groups</h2>
+					  </div>
+					     <!-- 
+					  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  						<div class="panel panel-default">
+				           <table id="groups" class="table table-bordered table-hover table-striped">
+								<tbody>
+								     <tr th:if="${#lists.isEmpty(groups)}" class="btn-warning">
+								        <td colspan="4" align="center">No Groups Registered Yet!!!</td> 
+								     </tr>
+									   <tr th:each="group : ${groups}">
+									     <td th:attr="row=${group.id}" th:text="${group.name}"></td>
+									   </tr>
+								    
+								</tbody>
+							</table>
+							 -->
+     					    <div th:if="${#lists.isEmpty(groups)}" class="panel-heading" role="tab" id="headingOne">
+						      <h4 class="panel-title">
+						      	No Groups Registered Yet!!!
+						      </h4>
+						    </div>
+						    <div th:if="${!#lists.isEmpty(groups)}" id="accordion">
+						    	<h3 th:each="group : ${groups}" class="ignore">
+									<h3 th:attr="id=${group.id}" th:text="${group.name}" ></h3>
+									<div>
+										<p>No items</p>
+									</div>
+								</h3>
+						    </div>
+						    <!-- 
+					      </div>
+					   </div> -->         
+					</div>
+		       </div>
+		   </div>
+		</div>
     </body>
 </html>
